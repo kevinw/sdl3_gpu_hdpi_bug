@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-rm -rf build
+# rm -rf build
 mkdir -p build
 pushd build
 
