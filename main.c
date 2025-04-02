@@ -5,7 +5,7 @@ NOTE: This example code causes a macOS crash when you run it and maximize the wi
 
 Version tested: SDL3-3.2.10
 
-It seems to occur when window's present mode is set to SDL_GPU_PRESENTMODE_IMMEDIATE.
+It seems to occur when window's present mode is set to SDL_GPU_PRESENTMODE_IMMEDIATE, and the window is on my 120hz monitor. It does not occur on my 60hz monitor.
 
 If you uncomment the #define FORCE_VSYNC_AND_PREVENT_CRASH line below, the crash will not happen.  
 */
