@@ -15,6 +15,13 @@ else()
     message(STATUS "No .env file found")
 endif()
 
+if(DEFINED ENV{SDL3_DIR})
+	message(STATUS "SDL3_DIR set in environment: $ENV{SDL3_DIR}")
+else()
+	set(ENV{SDL3_DIR} "${CMAKE_CURRENT_SOURCE_DIR}/deps/SDL3/lib/cmake")
+	message(STATUS "SDL3_DIR set locally: $ENV{SDL3_DIR}")
+endif()
+
 find_package(SDL3 REQUIRED)
 
 add_executable(main main.c)

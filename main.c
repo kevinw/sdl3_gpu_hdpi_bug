@@ -109,34 +109,34 @@ int main(int arg, char** argv) {
             if (event.type == SDL_EVENT_QUIT) {
                 quit = true;
             }
-
-            SDL_GPUCommandBuffer* cmdbuf = SDL_AcquireGPUCommandBuffer(Device);
-            if (cmdbuf == NULL) {
-                SDL_Log("AcquireGPUCommandBuffer failed: %s", SDL_GetError());
-                return -1;
-            }
-
-            SDL_GPUTexture* swapchainTexture;
-            if (!SDL_WaitAndAcquireGPUSwapchainTexture(cmdbuf, Window, &swapchainTexture, NULL, NULL)) {
-                SDL_Log("WaitAndAcquireGPUSwapchainTexture failed: %s", SDL_GetError());
-                return -1;
-            }
-
-            if (swapchainTexture != NULL) {
-                SDL_GPUColorTargetInfo colorTargetInfo = { 0 };
-                colorTargetInfo.texture = swapchainTexture;
-                colorTargetInfo.clear_color = (SDL_FColor){ 0.0f, 0.0f, 0.0f, 1.0f };
-                colorTargetInfo.load_op = SDL_GPU_LOADOP_CLEAR;
-                colorTargetInfo.store_op = SDL_GPU_STOREOP_STORE;
-
-                SDL_GPURenderPass* renderPass = SDL_BeginGPURenderPass(cmdbuf, &colorTargetInfo, 1, NULL);
-                SDL_BindGPUGraphicsPipeline(renderPass, Pipeline);
-                SDL_DrawGPUPrimitives(renderPass, 3, 1, 0, 0);
-                SDL_EndGPURenderPass(renderPass);
-            }
-
-            SDL_SubmitGPUCommandBuffer(cmdbuf);
         }
+
+        SDL_GPUCommandBuffer* cmdbuf = SDL_AcquireGPUCommandBuffer(Device);
+        if (cmdbuf == NULL) {
+            SDL_Log("AcquireGPUCommandBuffer failed: %s", SDL_GetError());
+            return -1;
+        }
+
+        SDL_GPUTexture* swapchainTexture;
+        if (!SDL_WaitAndAcquireGPUSwapchainTexture(cmdbuf, Window, &swapchainTexture, NULL, NULL)) {
+            SDL_Log("WaitAndAcquireGPUSwapchainTexture failed: %s", SDL_GetError());
+            return -1;
+        }
+
+        if (swapchainTexture != NULL) {
+            SDL_GPUColorTargetInfo colorTargetInfo = { 0 };
+            colorTargetInfo.texture = swapchainTexture;
+            colorTargetInfo.clear_color = (SDL_FColor){ 0.0f, 0.0f, 0.0f, 1.0f };
+            colorTargetInfo.load_op = SDL_GPU_LOADOP_CLEAR;
+            colorTargetInfo.store_op = SDL_GPU_STOREOP_STORE;
+
+            SDL_GPURenderPass* renderPass = SDL_BeginGPURenderPass(cmdbuf, &colorTargetInfo, 1, NULL);
+            SDL_BindGPUGraphicsPipeline(renderPass, Pipeline);
+            SDL_DrawGPUPrimitives(renderPass, 3, 1, 0, 0);
+            SDL_EndGPURenderPass(renderPass);
+        }
+
+        SDL_SubmitGPUCommandBuffer(cmdbuf);
     }
 
     SDL_ReleaseGPUGraphicsPipeline(Device, Pipeline);

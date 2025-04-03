@@ -4,8 +4,8 @@ rm -rf build
 mkdir -p build
 pushd build
 
-cmake ..
+cmake .. -DCMAKE_BUILD_TYPE=Release
 cmake --build .
-./main
+MTL_HUD_ENABLED=1 ./main
 
 popd
