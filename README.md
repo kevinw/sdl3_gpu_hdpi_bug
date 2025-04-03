@@ -1,12 +1,16 @@
 # sdl_gpu crash
 
-`./build_and_run.sh` will invoke cmake to build and run the project in `build/`. You may need to set `SDL3_DIR` in the shell environment to help CMake find SDL3.
+`./build_and_run.sh` will invoke cmake to build and run the project in `build/`.
 
-Version tested: SDL3-3.2.10
+A copy of SDL3-3.2.10 built for macOS is provided in `deps` but you may need to set `SDL3_DIR` in the shell environment to help CMake find another SDL3.
 
-It seems to occur when window's present mode is set to SDL_GPU_PRESENTMODE_IMMEDIATE, and the window is on my 120hz monitor. It does not occur on my 60hz monitor.  Here's my monitor layout:
+For the crash to occur, these conditions must be met:
 
-![monitor layout](monitor_layout.jpg)
+- The window's present mode is set to `SDL_GPU_PRESENTMODE_IMMEDIATE`
+- The window is created with `SDL_WINDOW_HIGH_PIXEL_DENSITY | SDL_WINDOW_RESIZABLE` flags
+- The window is on a 120Hz monitor, and you do the following:
+  1. Press the green button in the top-left macOS window titlebar to set the app to fullscreen mode
+  2. Hover the mouse over the top of the screen to bring down the sliding "fullscreen titlebar".
 
 ## Mac crash log
 
